@@ -17,6 +17,7 @@ class Database:
             "https://www.googleapis.com/auth/spreadsheets",
             "https://www.googleapis.com/auth/drive.file",
             "https://www.googleapis.com/auth/drive"
+
         ]
         self.creds = ServiceAccountCredentials.from_json_keyfile_name(
                         "creds.json", self.scope)
@@ -31,5 +32,35 @@ class Database:
         return Database.__instance
 
 
+    @staticmethod
+    def __wlt_to_games(record_str):
+        return sum(map(int, record_str.split("-")))
+
+
+    def __get_row(self, col, val):
+        for row in self.get_all_data():
+            if row[col].lower() == val.lower():
+                return row
+
+
+    # def sort(self):
+    #     all_data = self.get_all_data()
+    #
+    #     for row in all_data:
+    #         games_played = self.__wlt_to_games(row["W-L-T"])
+
+
     def get_all_data(self):
         return self.sheet.get_all_records()
+
+
+    def get_player_data(self, ign):
+        return self.__get_row("IGN", ign)
+
+
+    def get_team_data(self, team):
+        return self.__get_row("Team", team)
+
+
+    def get_rank_data(self, rank):
+        return self.__get_row("Rank", rank)
