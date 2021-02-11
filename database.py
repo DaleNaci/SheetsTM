@@ -44,16 +44,13 @@ class Database:
         players = [Player(d) for d in self.get_all_data()]
         players.sort(reverse=True)
 
-        rank_counter = 1
         for i in range(len(players)):
             p = players[i]
-            p.data["Rank"] = rank_counter
-            rank_counter += 1
+            p.data["Rank"] = i+1
 
-        # TODO: Sort the sheet based on the new rankings
-
-
-
+            sheet_range = f"A{i+2}:G{i+2}"
+            new_cell_values = [[v for v in p.data.values()]]
+            self.sheet.update(sheet_range, new_cell_values)
 
 
     def get_all_data(self):
