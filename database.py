@@ -32,22 +32,17 @@ class Database:
         return Database.__instance
 
 
-    @staticmethod
-    def __wlt_to_games(record_str):
-        return sum(map(int, record_str.split("-")))
-
-
     def __get_row(self, col, val):
         for row in self.get_all_data():
             if row[col].lower() == val.lower():
                 return row
 
 
-    # def sort(self):
-    #     all_data = self.get_all_data()
-    #
-    #     for row in all_data:
-    #         games_played = self.__wlt_to_games(row["W-L-T"])
+    def sort(self):
+        all_data = self.get_all_data()
+
+        # for row in all_data:
+
 
 
     def get_all_data(self):
