@@ -2,6 +2,8 @@ import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 from pprint import pprint
 
+from player import Player
+
 
 class Database:
     __instance = None
@@ -39,9 +41,18 @@ class Database:
 
 
     def sort(self):
-        all_data = self.get_all_data()
+        players = [Player(d) for d in self.get_all_data()]
+        players.sort(reverse=True)
 
-        # for row in all_data:
+        rank_counter = 1
+        for i in range(len(players)):
+            p = players[i]
+            p.data["Rank"] = rank_counter
+            rank_counter += 1
+
+        # TODO: Sort the sheet based on the new rankings
+
+
 
 
 
