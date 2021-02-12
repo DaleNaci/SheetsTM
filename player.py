@@ -11,6 +11,13 @@ class Player:
     def get_tiebreakers(self):
         games_played = self.__wlt_to_games()
 
+        if games_played == 0:
+            return {
+                "avg_WP": 0,
+                "avg_AP": 0,
+                "avg_SP": 0
+            }
+
         return {
             "avg_WP": self.data["WP"] / games_played,
             "avg_AP": self.data["AP"] / games_played,
